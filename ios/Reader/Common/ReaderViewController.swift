@@ -1,8 +1,8 @@
 import Combine
 import SafariServices
 import UIKit
-import R2Navigator
-import R2Shared
+import ReadiumNavigator
+import ReadiumShared
 import SwiftSoup
 import WebKit
 
@@ -82,6 +82,18 @@ class ReaderViewController: UIViewController, Loggable {
     addChild(navigator)
     stackView.addArrangedSubview(navigator.view)
     navigator.didMove(toParent: self)
+
+    // Setup input observers for the new API in swift-toolkit 3.3.0
+    if let visualNavigator = navigator as? VisualNavigator {
+      // This adapter will automatically turn pages when the user taps the screen edges or press arrow keys
+      DirectionalNavigationAdapter().bind(to: visualNavigator)
+
+      // Toggle the navigation bar on tap, if nothing else took precedence
+      visualNavigator.addObserver(.tap { [weak self] _ in
+        self?.toggleNavigationBar()
+        return true
+      })
+    }
 
     stackView.addArrangedSubview(accessibilityToolbar)
 
@@ -215,89 +227,75 @@ class ReaderViewController: UIViewController, Loggable {
 
 }
 
-extension ReaderViewController: NavigatorDelegate {
-  func navigator(_ navigator: Navigator, locationDidChange locator: Locator) {
-    subject.send(locator)
-    positionLabel.text = {
-      if let position = locator.locations.position {
-        return "\(position) / \(publication.positions.count)"
-      } else if let progression = locator.locations.totalProgression {
-        return "\(progression)%"
-      } else {
-        return nil
-      }
-    }()
-  }
-
-  func navigator(_ navigator: Navigator, presentExternalURL url: URL) {
-    // SFSafariViewController crashes when given an URL without an HTTP scheme.
-    guard ["http", "https"].contains(url.scheme?.lowercased() ?? "") else {
-      return
-    }
-    present(SFSafariViewController(url: url), animated: true)
-  }
-
-  func navigator(_ navigator: Navigator, presentError error: NavigatorError) {
-    moduleDelegate?.presentError(error, from: self)
-  }
-
-  func navigator(_ navigator: Navigator, shouldNavigateToNoteAt link: Link, content: String, referrer: String?) -> Bool {
-
-    var title = referrer
-    if let t = title {
-      title = try? clean(t, .none())
-    }
-    if !suitableTitle(title) {
-      title = nil
-    }
-
-    let content = (try? clean(content, .none())) ?? ""
-    let page =
-    """
-    <html>
-      <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      </head>
-      <body>
-        \(content)
-      </body>
-    </html>
-    """
-
-    let wk = WKWebView()
-    wk.loadHTMLString(page, baseURL: nil)
-
-    let vc = UIViewController()
-    vc.view = wk
-    vc.navigationItem.title = title
-
-    let nav = UINavigationController(rootViewController: vc)
-    nav.modalPresentationStyle = .formSheet
-    self.present(nav, animated: true, completion: nil)
-
-    return false
-  }
-
-  /// Checks to ensure the title is non-nil and contains at least 2 letters.
-  func suitableTitle(_ title: String?) -> Bool {
-    guard let title = title else { return false }
-    let range = NSRange(location: 0, length: title.utf16.count)
-    let match = ReaderViewController.noterefTitleRegex.firstMatch(in: title, range: range)
-    return match != nil
-  }
-
-}
-
 extension ReaderViewController: VisualNavigatorDelegate {
 
-    func navigator(_ navigator: VisualNavigator, didTapAt point: CGPoint) {
-        let moved = DirectionalNavigationAdapter(navigator: navigator).didTap(at: point)
-        if !moved {
-            toggleNavigationBar()
-        }
+    func navigator(_ navigator: Navigator, locationDidChange locator: Locator) {
+        subject.send(locator)
+        positionLabel.text = {
+            if let position = locator.locations.position {
+                return "\(position) / \(publication.positions.count)"
+            } else if let progression = locator.locations.totalProgression {
+                return "\(progression)%"
+            } else {
+                return nil
+            }
+        }()
     }
-    
-    func navigator(_ navigator: VisualNavigator, didPressKey event: KeyEvent) {
-        DirectionalNavigationAdapter(navigator: navigator).didPressKey(event: event)
+
+    func navigator(_ navigator: Navigator, presentExternalURL url: URL) {
+        // SFSafariViewController crashes when given an URL without an HTTP scheme.
+        guard ["http", "https"].contains(url.scheme?.lowercased() ?? "") else {
+            return
+        }
+        present(SFSafariViewController(url: url), animated: true)
+    }
+
+    func navigator(_ navigator: Navigator, presentError error: NavigatorError) {
+        moduleDelegate?.presentError(error, from: self)
+    }
+
+    func navigator(_ navigator: Navigator, shouldNavigateToNoteAt link: Link, content: String, referrer: String?) -> Bool {
+
+        var title = referrer
+        if let t = title {
+            title = try? clean(t, .none())
+        }
+        if !suitableTitle(title) {
+            title = nil
+        }
+
+        let content = (try? clean(content, .none())) ?? ""
+        let page =
+        """
+        <html>
+          <head>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          </head>
+          <body>
+            \(content)
+          </body>
+        </html>
+        """
+
+        let wk = WKWebView()
+        wk.loadHTMLString(page, baseURL: nil)
+
+        let vc = UIViewController()
+        vc.view = wk
+        vc.navigationItem.title = title
+
+        let nav = UINavigationController(rootViewController: vc)
+        nav.modalPresentationStyle = .formSheet
+        self.present(nav, animated: true, completion: nil)
+
+        return false
+    }
+
+    /// Checks to ensure the title is non-nil and contains at least 2 letters.
+    func suitableTitle(_ title: String?) -> Bool {
+        guard let title = title else { return false }
+        let range = NSRange(location: 0, length: title.utf16.count)
+        let match = ReaderViewController.noterefTitleRegex.firstMatch(in: title, range: range)
+        return match != nil
     }
 }

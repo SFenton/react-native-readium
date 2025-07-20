@@ -1,7 +1,7 @@
 import Combine
 import Foundation
-import R2Shared
-import R2Streamer
+import ReadiumShared
+import ReadiumStreamer
 import UIKit
 
 final class ReaderService: Loggable {
@@ -17,7 +17,7 @@ final class ReaderService: Loggable {
       print(error)
     }
   }
-  
+
   static func locatorFromLocation(
     _ location: NSDictionary?,
     _ publication: Publication?
@@ -45,7 +45,7 @@ final class ReaderService: Loggable {
     } else {
       return try? Locator(json: location)
     }
-    
+
     return nil
   }
 
