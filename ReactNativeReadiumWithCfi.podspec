@@ -3,7 +3,7 @@ require "json"
 package = JSON.parse(File.read(File.join(__dir__, "package.json")))
 
 Pod::Spec.new do |s|
-  s.name         = "@sfenton/react-native-readium-with-cfi"
+  s.name         = "ReactNativeReadiumWithCfi"
   s.version      = package["version"]
   s.summary      = package["description"]
   s.homepage     = package["homepage"]
@@ -13,7 +13,7 @@ Pod::Spec.new do |s|
   s.platforms    = { :ios => "13.0" }
   s.ios.deployment_target = "13.0"
 
-  s.source       = { :git => "http://github.com/sfenton/react-native-readium.git", :tag => "#{s.version}" }
+  s.source       = { :git => "https://github.com/sfenton/react-native-readium.git", :tag => "#{s.version}" }
   s.source_files = "ios/**/*.{h,m,mm,swift}"
 
   s.swift_version = "5.0"

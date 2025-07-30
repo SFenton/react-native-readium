@@ -1,6 +1,6 @@
 {
   "name": "@sfenton/react-native-readium-with-cfi",
-  "version": "3.0.3-withcfi",
+  "version": "3.0.4-withcfi",
   "description": "A react-native wrapper for https://readium.org/ with CFI support",
   "main": "lib/src/index",
   "types": "lib/src/index.d.ts",
