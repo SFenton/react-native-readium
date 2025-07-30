@@ -31,11 +31,11 @@ target 'ReadiumExample' do
   pod 'react-native-readium', :path => '../..'
 
   pod 'GCDWebServer', podspec: 'https://raw.githubusercontent.com/readium/GCDWebServer/3.7.5/GCDWebServer.podspec', modular_headers: true
-  pod 'ReadiumAdapterGCDWebServer', podspec: 'https://raw.githubusercontent.com/readium/swift-toolkit/2.6.0/Support/CocoaPods/ReadiumAdapterGCDWebServer.podspec', modular_headers: true
-  pod 'ReadiumInternal', podspec: 'https://raw.githubusercontent.com/readium/swift-toolkit/2.6.0/Support/CocoaPods/ReadiumInternal.podspec'
-  pod 'R2Shared', podspec: 'https://raw.githubusercontent.com/readium/swift-toolkit/2.6.0/Support/CocoaPods/ReadiumShared.podspec'
-  pod 'R2Streamer', podspec: 'https://raw.githubusercontent.com/readium/swift-toolkit/2.6.0/Support/CocoaPods/ReadiumStreamer.podspec'
-  pod 'R2Navigator', podspec: 'https://raw.githubusercontent.com/readium/swift-toolkit/2.6.0/Support/CocoaPods/ReadiumNavigator.podspec'
+  pod 'ReadiumAdapterGCDWebServer', podspec: 'https://raw.githubusercontent.com/SFenton/swift-toolkit/2.6.1-withcfi/Support/CocoaPods/ReadiumAdapterGCDWebServer.podspec'
+  pod 'ReadiumInternal', podspec: 'https://raw.githubusercontent.com/SFenton/swift-toolkit/2.6.1-withcfi/Support/CocoaPods/ReadiumInternal.podspec'
+  pod 'R2Shared', podspec: 'https://raw.githubusercontent.com/SFenton/swift-toolkit/2.6.1-withcfi/Support/CocoaPods/ReadiumShared.podspec'
+  pod 'R2Streamer', podspec: 'https://raw.githubusercontent.com/SFenton/swift-toolkit/2.6.1-withcfi/Support/CocoaPods/ReadiumStreamer.podspec'
+  pod 'R2Navigator', podspec: 'https://raw.githubusercontent.com/SFenton/swift-toolkit/2.6.1-withcfi/Support/CocoaPods/ReadiumNavigator.podspec'
   pod 'Minizip', modular_headers: true
 
   post_install do |installer|

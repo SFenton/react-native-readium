@@ -14,6 +14,9 @@ class ReadiumView : UIView, Loggable {
     return viewController as? UIViewController
   }
   private var subscriptions = Set<AnyCancellable>()
+  private var pendingLocation: NSDictionary? = nil
+  private var isNavigatorReady: Bool = false
+  private var isNavigatingProgrammatically: Bool = false
 
   @objc var file: NSDictionary? = nil {
     didSet {
@@ -40,6 +43,9 @@ class ReadiumView : UIView, Loggable {
     url: String,
     location: NSDictionary?
   ) {
+    // Reset navigator ready state
+    isNavigatorReady = false
+
     guard let rootViewController = UIApplication.shared.delegate?.window??.rootViewController else { return }
 
     self.readerService.buildViewController(
@@ -49,32 +55,45 @@ class ReadiumView : UIView, Loggable {
       sender: rootViewController,
       completion: { vc in
         self.addViewControllerAsSubview(vc)
-        self.location = location
       }
     )
   }
 
   func getLocator() -> Locator? {
-    return ReaderService.locatorFromLocation(location, readerViewController?.publication)
+    let locator = ReaderService.locatorFromLocation(location, readerViewController?.publication)
+    return locator
   }
 
   func updateLocation() {
     guard let navigator = readerViewController?.navigator else {
+      pendingLocation = location
       return;
     }
+
+    // Check if navigator is ready by testing if we can get current location
+    if !isNavigatorReady {
+      pendingLocation = location
+      return;
+    }
+
     guard let locator = self.getLocator() else {
       return;
     }
 
     let cur = navigator.currentLocation
+
     if (cur != nil && locator.hashValue == cur?.hashValue) {
       return;
     }
+
+    // Set flag to prevent feedback loop from location change events
+    isNavigatingProgrammatically = true
 
     navigator.go(
       to: locator,
       animated: true
     )
+    // Note: Flag will be cleared when navigation completes and location change event is received
   }
 
   func updatePreferences(_ preferences: NSString?) {
@@ -121,6 +140,24 @@ class ReadiumView : UIView, Loggable {
   private func addViewControllerAsSubview(_ vc: ReaderViewController) {
     vc.publisher.sink(
       receiveValue: { locator in
+        // Skip processing location changes during programmatic navigation to prevent feedback loops
+        if self.isNavigatingProgrammatically {
+          // Clear the flag since navigation has completed (we received a location change)
+          self.isNavigatingProgrammatically = false
+          return
+        }
+
+        // Mark navigator as ready on first location event
+        if !self.isNavigatorReady {
+          self.isNavigatorReady = true
+
+          // Apply any pending location
+          if let pending = self.pendingLocation {
+            self.location = pending
+            self.pendingLocation = nil
+          }
+        }
+
         self.onLocationChange?(locator.json)
       }
     )

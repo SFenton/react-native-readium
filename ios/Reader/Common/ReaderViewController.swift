@@ -217,16 +217,93 @@ class ReaderViewController: UIViewController, Loggable {
 
 extension ReaderViewController: NavigatorDelegate {
   func navigator(_ navigator: Navigator, locationDidChange locator: Locator) {
-    subject.send(locator)
+    // Enhance the locator with CFI information if it's an EPUB
+    let enhancedLocator = enhanceLocatorWithCFI(locator)
+
+    subject.send(enhancedLocator)
     positionLabel.text = {
-      if let position = locator.locations.position {
+      if let position = enhancedLocator.locations.position {
         return "\(position) / \(publication.positions.count)"
-      } else if let progression = locator.locations.totalProgression {
+      } else if let progression = enhancedLocator.locations.totalProgression {
         return "\(progression)%"
       } else {
         return nil
       }
     }()
+  }
+
+  /// Enhances a locator with CFI information for EPUB publications
+  private func enhanceLocatorWithCFI(_ locator: Locator) -> Locator {
+    // Only add CFI for EPUB publications
+    guard publication.conforms(to: .epub) else {
+      return locator
+    }
+
+    // If precise CFI is already present from swift-toolkit, preserve it
+    if let existingCFI = locator.locations.otherLocations["cfi"] as? String,
+       existingCFI.contains("!") {
+      // Check if this is a precise DOM-based CFI (contains element IDs or complex structure)
+      // vs simple progression-based CFI (only contains simple numeric paths)
+      let isSimpleProgressionCFI = !existingCFI.contains("[") &&
+                                   !existingCFI.contains("/6/") && // No deep structural paths
+                                   existingCFI.range(of: "!/4/2:\\d+$", options: .regularExpression) != nil // Matches pattern like "!/4/2:123"
+
+      if !isSimpleProgressionCFI {
+        return locator // Return precise CFI as-is, don't enhance
+      }
+    }
+
+    // If CFI is already present, don't override it
+    if locator.cfi != nil {
+      return locator
+    }
+
+    // Generate CFI based on the locator's position and progression
+    var newOtherLocations = locator.locations.otherLocations
+
+    // Generate progression-based CFI if we have position information
+    if let position = locator.locations.position,
+       let progression = locator.locations.progression {
+      let progressionBasedCFI = generateFullCFI(spinePosition: position, progression: progression)
+
+      // If no precise CFI exists, use progression CFI as the main CFI
+      if newOtherLocations["cfi"] == nil {
+        newOtherLocations["cfi"] = progressionBasedCFI
+      }
+
+      // Always provide progression CFI as a fallback
+      newOtherLocations["progressionCfi"] = progressionBasedCFI
+    }
+
+    // Create new locations with CFI data
+    let newLocations = Locator.Locations(
+      fragments: locator.locations.fragments,
+      progression: locator.locations.progression,
+      totalProgression: locator.locations.totalProgression,
+      position: locator.locations.position,
+      otherLocations: newOtherLocations
+    )
+
+    return Locator(
+      href: locator.href,
+      type: locator.type,
+      title: locator.title,
+      locations: newLocations,
+      text: locator.text
+    )
+  }
+
+  /// Generates a full CFI from spine position and progression
+  private func generateFullCFI(spinePosition: Int, progression: Double) -> String {
+    // EPUB CFI spine references are 1-based and even-numbered
+    // e.g., first item is /6/2, second is /6/4, etc.
+    let spineReference = "/6/\((spinePosition + 1) * 2)"
+
+    // Create a basic document fragment based on progression
+    let characterOffset = Int(progression * 1000) // Approximate character offset
+    let documentFragment = "/4/2:\(characterOffset)"
+
+    return "epubcfi(\(spineReference)!\(documentFragment))"
   }
 
   func navigator(_ navigator: Navigator, presentExternalURL url: URL) {
@@ -296,7 +373,7 @@ extension ReaderViewController: VisualNavigatorDelegate {
             toggleNavigationBar()
         }
     }
-    
+
     func navigator(_ navigator: VisualNavigator, didPressKey event: KeyEvent) {
         DirectionalNavigationAdapter(navigator: navigator).didPressKey(event: event)
     }

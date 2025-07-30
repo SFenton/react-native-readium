@@ -20,17 +20,17 @@ PODS:
     - hermes-engine/Pre-built (= 0.78.0)
   - hermes-engine/Pre-built (0.78.0)
   - Minizip (1.0.0)
-  - R2Navigator (2.6.0):
+  - R2Navigator (2.6.1-withcfi):
     - DifferenceKit (~> 1.0)
     - R2Shared
     - ReadiumInternal
-    - SwiftSoup (<= 2.5.3)
-  - R2Shared (2.6.0):
+    - SwiftSoup (~> 2.6)
+  - R2Shared (2.6.1-withcfi):
     - Fuzi (~> 3.0)
     - Minizip (~> 1.0)
     - ReadiumInternal
-    - SwiftSoup (<= 2.5.3)
-  - R2Streamer (2.6.0):
+    - SwiftSoup (~> 2.6)
+  - R2Streamer (2.6.1-withcfi):
     - CryptoSwift (<= 1.5.1)
     - Fuzi (~> 3.0)
     - GCDWebServer (~> 3.0)
@@ -1274,7 +1274,8 @@ PODS:
     - R2Streamer
     - React-Core
     - ReadiumAdapterGCDWebServer
-  - react-native-safe-area-context (5.3.0):
+    - ReadiumInternal
+  - react-native-safe-area-context (5.5.2):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -1287,8 +1288,8 @@ PODS:
     - React-featureflags
     - React-graphics
     - React-ImageManager
-    - react-native-safe-area-context/common (= 5.3.0)
-    - react-native-safe-area-context/fabric (= 5.3.0)
+    - react-native-safe-area-context/common (= 5.5.2)
+    - react-native-safe-area-context/fabric (= 5.5.2)
     - React-NativeModulesApple
     - React-RCTFabric
     - React-rendererdebug
@@ -1297,7 +1298,7 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - react-native-safe-area-context/common (5.3.0):
+  - react-native-safe-area-context/common (5.5.2):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -1318,7 +1319,7 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - react-native-safe-area-context/fabric (5.3.0):
+  - react-native-safe-area-context/fabric (5.5.2):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -1340,7 +1341,7 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - react-native-slider (4.5.6):
+  - react-native-slider (4.5.7):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -1353,7 +1354,7 @@ PODS:
     - React-featureflags
     - React-graphics
     - React-ImageManager
-    - react-native-slider/common (= 4.5.6)
+    - react-native-slider/common (= 4.5.7)
     - React-NativeModulesApple
     - React-RCTFabric
     - React-rendererdebug
@@ -1362,7 +1363,7 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - react-native-slider/common (4.5.6):
+  - react-native-slider/common (4.5.7):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -1670,14 +1671,14 @@ PODS:
     - React-logger (= 0.78.0)
     - React-perflogger (= 0.78.0)
     - React-utils (= 0.78.0)
-  - ReadiumAdapterGCDWebServer (2.6.0):
+  - ReadiumAdapterGCDWebServer (2.6.1-withcfi):
     - GCDWebServer (~> 3.0)
     - R2Shared
     - ReadiumInternal
-  - ReadiumInternal (2.6.0)
+  - ReadiumInternal (2.6.1-withcfi)
   - RNFS (2.20.0):
     - React-Core
-  - RNScreens (4.9.1):
+  - RNScreens (4.13.1):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -1698,9 +1699,9 @@ PODS:
     - ReactCodegen
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
-    - RNScreens/common (= 4.9.1)
+    - RNScreens/common (= 4.13.1)
     - Yoga
-  - RNScreens/common (4.9.1):
+  - RNScreens/common (4.13.1):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -1725,7 +1726,7 @@ PODS:
   - RNVectorIcons (9.2.0):
     - React-Core
   - SocketRocket (0.7.1)
-  - SwiftSoup (2.5.3)
+  - SwiftSoup (2.7.6)
   - Yoga (0.0.0)
 
 DEPENDENCIES:
@@ -1738,9 +1739,9 @@ DEPENDENCIES:
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
   - hermes-engine (from `../node_modules/react-native/sdks/hermes-engine/hermes-engine.podspec`)
   - Minizip
-  - R2Navigator (from `https://raw.githubusercontent.com/readium/swift-toolkit/2.6.0/Support/CocoaPods/ReadiumNavigator.podspec`)
-  - R2Shared (from `https://raw.githubusercontent.com/readium/swift-toolkit/2.6.0/Support/CocoaPods/ReadiumShared.podspec`)
-  - R2Streamer (from `https://raw.githubusercontent.com/readium/swift-toolkit/2.6.0/Support/CocoaPods/ReadiumStreamer.podspec`)
+  - R2Navigator (from `https://raw.githubusercontent.com/SFenton/swift-toolkit/refs/heads/users/stefen/CustomSwiftToolkit/Support/CocoaPods/ReadiumNavigator.podspec`)
+  - R2Shared (from `https://raw.githubusercontent.com/SFenton/swift-toolkit/refs/heads/users/stefen/CustomSwiftToolkit/Support/CocoaPods/ReadiumShared.podspec`)
+  - R2Streamer (from `https://raw.githubusercontent.com/SFenton/swift-toolkit/refs/heads/users/stefen/CustomSwiftToolkit/Support/CocoaPods/ReadiumStreamer.podspec`)
   - RCT-Folly (from `../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec`)
   - RCT-Folly/Fabric (from `../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec`)
   - RCTDeprecation (from `../node_modules/react-native/ReactApple/Libraries/RCTFoundation/RCTDeprecation`)
@@ -1804,8 +1805,8 @@ DEPENDENCIES:
   - ReactAppDependencyProvider (from `build/generated/ios`)
   - ReactCodegen (from `build/generated/ios`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
-  - ReadiumAdapterGCDWebServer (from `https://raw.githubusercontent.com/readium/swift-toolkit/2.6.0/Support/CocoaPods/ReadiumAdapterGCDWebServer.podspec`)
-  - ReadiumInternal (from `https://raw.githubusercontent.com/readium/swift-toolkit/2.6.0/Support/CocoaPods/ReadiumInternal.podspec`)
+  - ReadiumAdapterGCDWebServer (from `https://raw.githubusercontent.com/SFenton/swift-toolkit/refs/heads/users/stefen/CustomSwiftToolkit/Support/CocoaPods/ReadiumAdapterGCDWebServer.podspec`)
+  - ReadiumInternal (from `https://raw.githubusercontent.com/SFenton/swift-toolkit/refs/heads/users/stefen/CustomSwiftToolkit/Support/CocoaPods/ReadiumInternal.podspec`)
   - RNFS (from `../node_modules/react-native-fs`)
   - RNScreens (from `../node_modules/react-native-screens`)
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
@@ -1839,11 +1840,11 @@ EXTERNAL SOURCES:
     :podspec: "../node_modules/react-native/sdks/hermes-engine/hermes-engine.podspec"
     :tag: hermes-2025-01-13-RNv0.78.0-a942ef374897d85da38e9c8904574f8376555388
   R2Navigator:
-    :podspec: https://raw.githubusercontent.com/readium/swift-toolkit/2.6.0/Support/CocoaPods/ReadiumNavigator.podspec
+    :podspec: https://raw.githubusercontent.com/SFenton/swift-toolkit/refs/heads/users/stefen/CustomSwiftToolkit/Support/CocoaPods/ReadiumNavigator.podspec
   R2Shared:
-    :podspec: https://raw.githubusercontent.com/readium/swift-toolkit/2.6.0/Support/CocoaPods/ReadiumShared.podspec
+    :podspec: https://raw.githubusercontent.com/SFenton/swift-toolkit/refs/heads/users/stefen/CustomSwiftToolkit/Support/CocoaPods/ReadiumShared.podspec
   R2Streamer:
-    :podspec: https://raw.githubusercontent.com/readium/swift-toolkit/2.6.0/Support/CocoaPods/ReadiumStreamer.podspec
+    :podspec: https://raw.githubusercontent.com/SFenton/swift-toolkit/refs/heads/users/stefen/CustomSwiftToolkit/Support/CocoaPods/ReadiumStreamer.podspec
   RCT-Folly:
     :podspec: "../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec"
   RCTDeprecation:
@@ -1967,9 +1968,9 @@ EXTERNAL SOURCES:
   ReactCommon:
     :path: "../node_modules/react-native/ReactCommon"
   ReadiumAdapterGCDWebServer:
-    :podspec: https://raw.githubusercontent.com/readium/swift-toolkit/2.6.0/Support/CocoaPods/ReadiumAdapterGCDWebServer.podspec
+    :podspec: https://raw.githubusercontent.com/SFenton/swift-toolkit/refs/heads/users/stefen/CustomSwiftToolkit/Support/CocoaPods/ReadiumAdapterGCDWebServer.podspec
   ReadiumInternal:
-    :podspec: https://raw.githubusercontent.com/readium/swift-toolkit/2.6.0/Support/CocoaPods/ReadiumInternal.podspec
+    :podspec: https://raw.githubusercontent.com/SFenton/swift-toolkit/refs/heads/users/stefen/CustomSwiftToolkit/Support/CocoaPods/ReadiumInternal.podspec
   RNFS:
     :path: "../node_modules/react-native-fs"
   RNScreens:
@@ -1992,9 +1993,9 @@ SPEC CHECKSUMS:
   glog: eb93e2f488219332457c3c4eafd2738ddc7e80b8
   hermes-engine: b417d2b2aee3b89b58e63e23a51e02be91dc876d
   Minizip: 188cb3e39a1195c283ae03bf673d182596fefd0b
-  R2Navigator: 4b53a3d10dd7282c9d9cd6d2188e68f0041840fc
-  R2Shared: fa34e56aa6e67e34608bf6ef72acf2631cbc4b5e
-  R2Streamer: d2501f0395c868cb65329ec46e3ab604b8b98687
+  R2Navigator: a08825a414a8625f2b10647632a5e5dd1822c160
+  R2Shared: edb744f3ffc2ae0154979124ad2e0505e0f68f97
+  R2Streamer: bf15ea65abd687af768cbeead72d0673b3ef29d9
   RCT-Folly: 36fe2295e44b10d831836cc0d1daec5f8abcf809
   RCTDeprecation: b2eecf2d60216df56bc5e6be5f063826d3c1ee35
   RCTRequired: 78522de7dc73b81f3ed7890d145fa341f5bb32ea
@@ -2025,9 +2026,9 @@ SPEC CHECKSUMS:
   React-logger: 795cd5055782db394f187f9db0477d4b25b44291
   React-Mapbuffer: 0502faf46cab8fb89cfc7bf3e6c6109b6ef9b5de
   React-microtasksnativemodule: 663bc64e3a96c5fc91081923ae7481adc1359a78
-  react-native-readium: aa668317aba990b7e449abfc939cd73b40ef0839
-  react-native-safe-area-context: 286b3e7b5589795bb85ffc38faf4c0706c48a092
-  react-native-slider: e7f302c8d3296ddb49c642473f77f8f98809d53b
+  react-native-readium: af76f3508b8bbc032105fac70ddf014b0857cb45
+  react-native-safe-area-context: 63e27bb3aeb2c0ef652f8913d731573932080ff9
+  react-native-slider: 27263d134d55db948a4706f1e47d0ec88fb354dd
   React-NativeModulesApple: 16fbd5b040ff6c492dacc361d49e63cba7a6a7a1
   React-perflogger: ab51b7592532a0ea45bf6eed7e6cae14a368b678
   React-performancetimeline: bc2e48198ec814d578ac8401f65d78a574358203
@@ -2056,15 +2057,15 @@ SPEC CHECKSUMS:
   ReactAppDependencyProvider: f2e81d80afd71a8058589e19d8a134243fa53f17
   ReactCodegen: a63a0ab6ae824aef2e8c744981edd718b16eb9f2
   ReactCommon: 3d39389f8e2a2157d5c999f8fba57bd1c8f226f0
-  ReadiumAdapterGCDWebServer: 6b4c0923a423495551db04dcfd47a46cac73c170
-  ReadiumInternal: a74f61e9c0fbe2407f4e5c53aa032aa92193f3d5
+  ReadiumAdapterGCDWebServer: 3ddf47c94a5a3c9ef3bcab5ad05b81f608c31c4c
+  ReadiumInternal: 9168a6071cc7ff9c44f555251ed3846796e3d5ed
   RNFS: 4ac0f0ea233904cb798630b3c077808c06931688
-  RNScreens: 991214b4e69016c1ae32830d9cea31c9c9422367
+  RNScreens: 6edb124b97753c3978b2a7c8974672c0f31bc78a
   RNVectorIcons: fcc2f6cb32f5735b586e66d14103a74ce6ad61f8
   SocketRocket: d4aabe649be1e368d1318fdf28a022d714d65748
-  SwiftSoup: 33e8d374021a6c332788f78fa29a93227d8a7699
-  Yoga: afd04ff05ebe0121a00c468a8a3c8080221cb14c
+  SwiftSoup: 9ec2526c76ebc3fe5d3157c82b40b45a27eeb82d
+  Yoga: 9b7fb56e7b08cde60e2153344fa6afbd88e5d99f
 
-PODFILE CHECKSUM: 5a59c60685bf37ef521deb29e588276b55b852c6
+PODFILE CHECKSUM: ee8316dff8bacf68b24ab7b51d2835e44b146ca3
 
-COCOAPODS: 1.15.2
+COCOAPODS: 1.16.2

@@ -1,7 +1,7 @@
 {
-  "name": "react-native-readium",
-  "version": "3.0.2",
-  "description": "A react-native wrapper for https://readium.org/",
+  "name": "@sfenton/react-native-readium-with-cfi",
+  "version": "3.0.3-withcfi",
+  "description": "A react-native wrapper for https://readium.org/ with CFI support",
   "main": "lib/src/index",
   "types": "lib/src/index.d.ts",
   "react-native": "src/index",
@@ -41,20 +41,21 @@
     "react-native",
     "ios",
     "android",
-    "readium",
     "ebook",
     "epub",
     "ereader",
     "e-reader",
-    "read"
+    "read",
+    "cfi",
+    "canonical-fragment-identifier"
   ],
-  "repository": "http://github.com/5-stones/react-native-readium",
-  "author": "Jacob Spizziri <jspizziri@weare5stones.com> (https://github.com/jspizziri)",
+  "repository": "https://github.com/SFenton/react-native-readium",
+  "author": "Stephen Fenton <stephenefenton@gmail.com> (https://github.com/SFenton)",
   "license": "MIT",
   "bugs": {
-    "url": "http://github.com/5-stones/react-native-readium/issues"
+    "url": "https://github.com/SFenton/react-native-readium/issues"
   },
-  "homepage": "http://github.com/5-stones/react-native-readium#readme",
+  "homepage": "https://github.com/SFenton/react-native-readium#readme",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },

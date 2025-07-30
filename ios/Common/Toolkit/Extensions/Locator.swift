@@ -12,3 +12,11 @@ extension Locator: Codable {
     try container.encode(jsonString)
   }
 }
+
+// CFI convenience properties for react-native-readium
+extension Locator {
+  /// Convenience property to access full CFI from otherLocations
+  public var cfi: String? {
+    return locations.otherLocations["cfi"] as? String
+  }
+}

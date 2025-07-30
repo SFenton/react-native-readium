@@ -10,5 +10,6 @@ export interface Locator {
     progression: number;
     position?: number;
     totalProgression?: number;
+    cfi?: string;
   };
 }
